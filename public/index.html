@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hanif’s World – Home</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body id="top">
+
+  <!-- SITE TITLE -->
+  <div class="site-title-top">
+    <h1>Hanif’s World</h1>
+  </div>
+
+  <!-- HEADER -->
+  <header class="main-header">
+    <!-- Hamburger -->
+    <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Nav Tabs -->
+    <nav class="nav-tabs">
+      <a href="index.html">Home</a>
+      <a href="pages/quiet.html">Quiet Bench</a>
+      <a href="pages/study.html">Study Table</a>
+      <a href="pages/studio.html">Little Studio</a>
+      <a href="pages/quotes.html">Pocket Quotes</a>
+      <a href="pages/pathways.html">Pathways</a>
+      <a href="pages/about.html">About Hanif</a>
+    </nav>
+
+    <!-- Dropdown Menu -->
+    <nav class="dropdown-menu" hidden>
+      <a href="index.html">Home</a>
+      <a href="pages/quiet.html">Quiet Bench</a>
+      <a href="pages/study.html">Study Table</a>
+      <a href="pages/studio.html">Little Studio</a>
+      <a href="pages/quotes.html">Pocket Quotes</a>
+      <a href="pages/pathways.html">Pathways</a>
+      <a href="pages/about.html">About Hanif</a>
+    </nav>
+  </header>
+
+  <!-- MAIN -->
+  <main>
+    <!-- Hero -->
+    <section class="hero fairy-bg">
+      <h2>Welcome to Hanif’s World</h2>
+      <p class="subline">A place for thoughts, learning, faith, and little sparks of joy.</p>
+      <blockquote id="daily-quote"></blockquote>
+    </section>
+
+    <!-- Quick Peek -->
+    <section class="cards">
+      <a class="card" href="pages/quiet.html"><div class="icon">🌿</div><h3>Quiet Bench</h3><p>Reflections for the soul</p></a>
+      <a class="card" href="pages/study.html"><div class="icon">📚</div><h3>Study Table</h3><p>Notes and learnings</p></a>
+      <a class="card" href="pages/studio.html"><div class="icon">🎥</div><h3>Little Studio</h3><p>Videos & doodles</p></a>
+      <a class="card" href="pages/quotes.html"><div class="icon">✨</div><h3>Pocket Quotes</h3><p>Daily inspiration</p></a>
+      <a class="card" href="pages/pathways.html"><div class="icon">🛤️</div><h3>Pathways</h3><p>My life timeline</p></a>
+      <a class="card" href="pages/about.html"><div class="icon">🌸</div><h3>About Hanif</h3><p>Get to know me</p></a>
+    </section>
+
+    <!-- Featured -->
+<section class="featured" aria-label="Featured Highlights">
+  <!-- Toggle button (visible only on mobile) -->
+  <button class="feature-toggle" aria-expanded="false">
+    Featured Highlights <span class="arrow">▼</span>
+  </button>
+
+  <!-- Feature grid -->
+  <div class="feature-grid">
+    <!-- 1) Latest Video -->
+    <a class="feature-card" href="https://www.youtube.com/watch?v=VIDEO_ID" target="_blank" rel="noopener">
+      <h3>🎥 Latest Video</h3>
+      <div class="feature-media">
+        <iframe width="100%" height="120" src="https://www.youtube.com/embed/VIDEO_ID" title="Latest video" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <span class="btn">Watch</span>
+    </a>
+
+    <!-- 2) Quiet Bench -->
+    <a class="feature-card" href="pages/quiet.html">
+      <h3>🌿 Quiet Bench</h3>
+      <p>“Silence isn’t empty, it’s full of answers.”</p>
+      <span class="btn">Read</span>
+    </a>
+
+    <!-- 3) Study Table -->
+    <a class="feature-card" href="pages/study.html">
+      <h3>📚 Study Table</h3>
+      <p>Golden tip: Use details for collapsible notes.</p>
+      <span class="btn">Explore</span>
+    </a>
+
+    <!-- 4) Pocket Quotes -->
+    <a class="feature-card" href="pages/quotes.html">
+      <h3>✨ Pocket Quotes</h3>
+      <p>“Every sunrise is a fresh page.”</p>
+      <span class="btn">See quotes</span>
+    </a>
+
+    <!-- 5) Pathways -->
+    <a class="feature-card" href="pages/pathways.html">
+      <h3>🛤️ Pathways</h3>
+      <p>Moments that shaped my journey.</p>
+      <span class="btn">Open</span>
+    </a>
+
+    <!-- 6) About Hanif -->
+    <a class="feature-card" href="pages/about.html">
+      <h3>🌸 About Hanif</h3>
+      <p>A short story of who I am.</p>
+      <span class="btn">Meet me</span>
+    </a>
+  </div>
+</section>
+
+
+    <!-- Hanif Today -->
+    <section class="sticky-note center-note">
+      <h3>Hanif Today</h3>
+      <p>Just brewed a cup of mint tea and diving into an old poem I wrote last year. Feeling grateful for the small moments.</p>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p class="name-tag">© 2025 Hanif’s World — Crafted with love, learning, and late nights</p>
+    <div class="social-links">
+      <a href="#"><i class="fab fa-youtube"></i></a>
+      <a href="#"><i class="fab fa-linkedin"></i></a>
+      <a href="#"><i class="fab fa-github"></i></a>
+    </div>
+    <a href="#top" id="back-to-top"><i class="fas fa-chevron-up"></i></a>
+  </footer>
+
+  <!-- JS -->
+  <script src="js/scripts.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiet Bench — Hanif’s World</title>
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  
+  <style>
+  /* Section titles with playful icons */
+.section-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 1.5rem 0 1rem;
+  text-align: center;
+  color: #2f4f2f;
+}
+
+/* Playable tile base style */
+.play-tile {
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.play-tile:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+.play-tile img, 
+.play-tile iframe {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border: none;
+  object-fit: cover;
+}
+.play-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.5rem;
+  color: white;
+  background: rgba(0,0,0,0.4);
+  border-radius: 50%;
+  padding: 0.5rem 0.7rem;
+  pointer-events: none;
+}
+
+/* 🎥 Featured Videos - smaller tiles */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  max-width: 800px;
+  margin: 0 auto 2rem;
+}
+
+/* 🎨 Mini Doodle Gallery - bigger boxes */
+.doodle-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+  max-width: 1000px;
+  margin: 0 auto 2rem;
+}
+
+/* 📸 Behind the Scenes - bigger boxes */
+.photo-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+  max-width: 1000px;
+  margin: 0 auto 2rem;
+}
+
+</style>
+
+</head>
+<body id="top">
+
+  <!-- SITE TITLE -->
+  <div class="site-title-top">
+    <h1>Hanif’s World</h1>
+  </div>
+
+  <!-- HEADER -->
+  <header class="main-header">
+    <!-- Hamburger -->
+    <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Nav Tabs -->
+    <nav class="nav-tabs">
+      <a href="../index.html">Home</a>
+      <a href="quiet.html">Quiet Bench</a>
+      <a href="study.html">Study Table</a>
+      <a href="studio.html">Little Studio</a>
+      <a href="quotes.html">Pocket Quotes</a>
+      <a href="pathways.html">Pathways</a>
+      <a href="about.html">About Hanif</a>
+    </nav>
+
+    <!-- Dropdown Menu -->
+    <nav class="dropdown-menu" hidden>
+      <a href="../index.html">Home</a>
+      <a href="quiet.html">Quiet Bench</a>
+      <a href="study.html">Study Table</a>
+      <a href="studio.html">Little Studio</a>
+      <a href="quotes.html">Pocket Quotes</a>
+      <a href="pathways.html">Pathways</a>
+      <a href="about.html">About Hanif</a>
+    </nav>
+  </header>
+
+  <main>
+  <!-- 🎥 Featured Videos -->
+  <h2 class="section-title">🎥 Featured Videos</h2>
+  <div class="video-grid">
+    <div class="play-tile" data-video="https://www.youtube.com/embed/SYyvx6GE2UI">
+      <img src="https://img.youtube.com/vi/SYyvx6GE2UI/hqdefault.jpg" alt="Video 1 thumbnail" loading="lazy">
+      <div class="play-icon">▶</div>
+    </div>
+    <div class="play-tile" data-video="https://www.youtube.com/embed/RzVvThhjAKw">
+      <img src="https://img.youtube.com/vi/RzVvThhjAKw/hqdefault.jpg" alt="Video 2 thumbnail" loading="lazy">
+      <div class="play-icon">▶</div>
+    </div>
+    <div class="play-tile" data-video="https://www.youtube.com/embed/NNS5Piu-EII">
+      <img src="https://img.youtube.com/vi/NNS5Piu-EII/hqdefault.jpg" alt="Video 3 thumbnail" loading="lazy">
+      <div class="play-icon">▶</div>
+    </div>
+  </div>
+
+  <!-- 🎨 Mini Doodle Gallery -->
+  <h2 class="section-title">🎨 Mini Doodle Gallery</h2>
+  <div class="doodle-gallery">
+    <div class="play-tile">
+      <img src="../images/doodle2.jpg" alt="Nature Doodle 2" loading="lazy">
+      <div class="play-icon">▶</div>
+    </div>
+    <div class="play-tile" data-video="https://www.youtube.com/embed/KJwYBJMSbPI">
+      <img src="https://img.youtube.com/vi/KJwYBJMSbPI/hqdefault.jpg" alt="Video thumbnail" loading="lazy">
+      <div class="play-icon">▶</div>
+    </div>
+    <div class="play-tile" data-video="https://www.youtube.com/embed/UV0mhY2Dxr0">
+      <img src="https://img.youtube.com/vi/UV0mhY2Dxr0/hqdefault.jpg" alt="Video thumbnail" loading="lazy">
+      <div class="play-icon">▶</div>
+    </div>
+  </div>
+
+  <!-- 📸 Behind the Scenes -->
+  <h2 class="section-title">📸 Behind the Scenes</h2>
+  <div class="photo-strip">
+    <div class="play-tile" data-video="https://www.youtube.com/embed/tZPQaihwZRA">
+      <img src="https://img.youtube.com/vi/tZPQaihwZRA/hqdefault.jpg" alt="Video thumbnail" loading="lazy">
+      <div class="play-icon">▶</div>
+    </div>
+    <div class="play-tile">
+      <img src="../images/behind2.jpg" alt="Behind the scenes 2" loading="lazy">
+      <div class="play-icon">▶</div>
+    </div>
+    <div class="play-tile" data-video="https://www.youtube.com/embed/oc_o5DZM3qc">
+      <img src="https://img.youtube.com/vi/oc_o5DZM3qc/hqdefault.jpg" alt="Video thumbnail" loading="lazy">
+      <div class="play-icon">▶</div>
+    </div>
+  </div>
+</main>
+
+
+
+<!-- Footer -->
+<footer>
+  © 2025 Hanif's World — Study Table
+</footer>
+
+  <!-- JS -->
+  <script src="../js/scripts.js"></script>
+  <script>
+document.querySelectorAll('.play-tile[data-video]').forEach(tile => {
+  tile.addEventListener('click', () => {
+    const videoURL = tile.getAttribute('data-video') + '?autoplay=1';
+    tile.innerHTML = `<iframe src="${videoURL}" frameborder="0" allowfullscreen loading="lazy"></iframe>`;
+  });
+});
+</script>
+
+</body>
+</html>

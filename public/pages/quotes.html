@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiet Bench — Hanif’s World</title>
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  
+  <style>
+  /* Ensure page takes full height so footer stays at bottom */
+html, body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+main {
+  flex: 1;
+}
+
+/* Section title */
+.section-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 1.5rem 0;
+  text-align: center;
+  color: #2f4f2f;
+}
+
+/* Filter buttons */
+.filter-buttons {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+.filter-buttons button {
+  background: linear-gradient(90deg, #89f7fe, #66a6ff);
+  border: none;
+  padding: 0.4rem 0.9rem;
+  margin: 0.3rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #fff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.filter-buttons button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* Mobile quote display under buttons */
+.mobile-quote {
+  text-align: center;
+  font-size: 1rem;
+  font-style: italic;
+  color: #222;
+  margin-bottom: 1rem;
+  display: none;
+}
+
+/* Stars area */
+.stars-area {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  height: 500px;
+}
+
+/* Big star */
+.big-star {
+  position: absolute;
+  color: gold;
+  text-align: center;
+  cursor: pointer;
+  animation: sparkle 1.5s infinite alternate;
+}
+
+/* Different star sizes */
+.star-large { font-size: 3rem; }
+.star-medium { font-size: 2.3rem; }
+.star-small { font-size: 1.8rem; }
+
+/* Sparkle animation */
+@keyframes sparkle {
+  0% { text-shadow: 0 0 5px gold, 0 0 10px gold; transform: scale(1); }
+  100% { text-shadow: 0 0 15px gold, 0 0 25px gold; transform: scale(1.15); }
+}
+
+/* Hanging quote */
+.hanging-quote {
+  background: rgba(255,255,255,0.95);
+  border-radius: 10px;
+  padding: 0.5rem 0.8rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  font-size: 0.85rem;
+  width: 160px;
+  color: #222;
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: sway 6s ease-in-out infinite;
+}
+.hanging-quote::before {
+  content: "";
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 50px;
+  background: #999;
+}
+.hanging-quote::after {
+  content: "📌";
+  position: absolute;
+  top: -65px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.9rem;
+}
+
+/* Gentle sway */
+@keyframes sway {
+  0%, 100% { transform: translateX(-50%) rotate(0deg); }
+  50% { transform: translateX(-50%) rotate(2deg); }
+}
+
+/* Sideways drift */
+@keyframes drift {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(20px); }
+}
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+  .stars-area {
+    display: none; /* Hide stars on mobile to avoid clutter */
+  }
+  .mobile-quote {
+    display: block;
+  }
+}
+
+</style>
+
+</head>
+<body id="top">
+
+  <!-- SITE TITLE -->
+  <div class="site-title-top">
+    <h1>Hanif’s World</h1>
+  </div>
+
+  <!-- HEADER -->
+  <header class="main-header">
+    <!-- Hamburger -->
+    <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Nav Tabs -->
+    <nav class="nav-tabs">
+      <a href="../index.html">Home</a>
+      <a href="quiet.html">Quiet Bench</a>
+      <a href="study.html">Study Table</a>
+      <a href="studio.html">Little Studio</a>
+      <a href="quotes.html">Pocket Quotes</a>
+      <a href="pathways.html">Pathways</a>
+      <a href="about.html">About Hanif</a>
+    </nav>
+
+    <!-- Dropdown Menu -->
+    <nav class="dropdown-menu" hidden>
+      <a href="../index.html">Home</a>
+      <a href="quiet.html">Quiet Bench</a>
+      <a href="study.html">Study Table</a>
+      <a href="studio.html">Little Studio</a>
+      <a href="quotes.html">Pocket Quotes</a>
+      <a href="pathways.html">Pathways</a>
+      <a href="about.html">About Hanif</a>
+    </nav>
+  </header>
+
+  <main>
+  <h2 class="section-title">✨ Pocket Quotes</h2>
+
+  <!-- Filter Buttons -->
+  <div class="filter-buttons">
+    <button data-filter="life">Life</button>
+    <button data-filter="faith">Faith</button>
+    <button data-filter="smile">Smile</button>
+    <button data-filter="courage">Courage</button>
+  </div>
+
+  <!-- Mobile quote display -->
+  <div class="mobile-quote" id="mobileQuote"></div>
+
+  <!-- Stars Area for laptop/desktop -->
+  <div class="stars-area" id="starsArea"></div>
+</main>
+
+
+<!-- Footer -->
+<footer>
+  © 2025 Hanif's World — Study Table
+</footer>
+
+  <!-- JS -->
+  <script src="../js/scripts.js"></script>
+
+<script>
+const quotesData = {
+  life: ["Life is what happens...", "In the middle...", "Enjoy the little things...", "Every moment matters..."],
+  faith: ["Faith is taking...", "Trust the process...", "Believe you can...", "Walk by faith..."],
+  smile: ["Peace begins...", "Keep smiling...", "A smile is...", "Smile often..."],
+  courage: ["Courage is grace...", "Stand tall...", "Face the storm...", "Be fearless..."]
+};
+
+// Safe zone positioning
+function getRandomPosition() {
+  const safeTop = 80;   // avoid header
+  const safeBottom = 120; // avoid footer
+  const areaHeight = document.querySelector(".stars-area").clientHeight;
+  const top = Math.floor(Math.random() * (areaHeight - safeTop - safeBottom) + safeTop);
+  const left = Math.floor(Math.random() * 85);
+  return { top: top + "px", left: left + "%" };
+}
+
+// Random star size
+function getRandomSize() {
+  const sizes = ["star-large", "star-medium", "star-small"];
+  return sizes[Math.floor(Math.random() * sizes.length)];
+}
+
+// Create drifting stars
+function createStars(category) {
+  const starsArea = document.getElementById("starsArea");
+  starsArea.innerHTML = "";
+  quotesData[category].forEach(q => {
+    const pos = getRandomPosition();
+    const sizeClass = getRandomSize();
+    const star = document.createElement("div");
+    star.className = `big-star ${sizeClass}`;
+    star.style.top = pos.top;
+    star.style.left = pos.left;
+    star.innerHTML = "★";
+
+    // Random twinkle + drift speed
+    const twinkleSpeed = (Math.random() * 1.3 + 1.2).toFixed(2) + "s";
+    const driftSpeed = (Math.random() * 10 + 8).toFixed(2) + "s";
+    star.style.animation = `sparkle ${twinkleSpeed} infinite alternate, drift ${driftSpeed} ease-in-out infinite`;
+
+    const quoteDiv = document.createElement("div");
+    quoteDiv.className = "hanging-quote";
+    quoteDiv.textContent = `"${q}"`;
+
+    star.appendChild(quoteDiv);
+    starsArea.appendChild(star);
+  });
+}
+
+// Button click
+document.querySelectorAll(".filter-buttons button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const category = btn.getAttribute("data-filter");
+
+    // Mobile: show first quote
+    if (window.innerWidth <= 600) {
+      document.getElementById("mobileQuote").textContent = `"${quotesData[category][0]}"`;
+    } else {
+      createStars(category);
+    }
+  });
+});
+</script>
+
+</body>
+</html>

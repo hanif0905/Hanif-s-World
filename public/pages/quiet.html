@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiet Bench — Hanif’s World</title>
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+   /* Box container styles with color variations */
+.content-box {
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 10px;
+  padding: 12px;
+  margin: 10px 0;
+  width: 85%; /* smaller width */
+  max-width: 500px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover effect */
+.content-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+}
+
+/* Icon + text alignment */
+.content-box span {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Color variations for each box */
+.box1 { background: rgba(255, 182, 193, 0.25); } /* light pink */
+.box2 { background: rgba(255, 215, 0, 0.25); }  /* light gold */
+.box3 { background: rgba(144, 238, 144, 0.25); } /* light green */
+.box4 { background: rgba(173, 216, 230, 0.25); } /* light blue */
+
+/* Footer fixed at bottom */
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 8px 0;
+  background: none; /* no background */
+}
+
+  </style>
+</head>
+<body id="top">
+
+  <!-- SITE TITLE -->
+  <div class="site-title-top">
+    <h1>Hanif’s World</h1>
+  </div>
+
+  <!-- HEADER -->
+  <header class="main-header">
+    <!-- Hamburger -->
+    <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Nav Tabs -->
+    <nav class="nav-tabs">
+      <a href="../index.html">Home</a>
+      <a href="quiet.html">Quiet Bench</a>
+      <a href="study.html">Study Table</a>
+      <a href="studio.html">Little Studio</a>
+      <a href="quotes.html">Pocket Quotes</a>
+      <a href="pathways.html">Pathways</a>
+      <a href="about.html">About Hanif</a>
+    </nav>
+
+    <!-- Dropdown Menu -->
+    <nav class="dropdown-menu" hidden>
+      <a href="../index.html">Home</a>
+      <a href="quiet.html">Quiet Bench</a>
+      <a href="study.html">Study Table</a>
+      <a href="studio.html">Little Studio</a>
+      <a href="quotes.html">Pocket Quotes</a>
+      <a href="pathways.html">Pathways</a>
+      <a href="about.html">About Hanif</a>
+    </nav>
+  </header>
+
+    <!-- ===== MAIN ===== -->
+  <main>
+    <section class="hero fairy-bg">
+      <h2>🌿 Quiet Bench</h2>
+      <p class="subline">A peaceful corner for reflection and calm.</p>
+      <blockquote>“Sometimes the quiet speaks louder than words.”</blockquote>
+    </section>
+
+    <section class="todays-thought" style="max-width:500px;margin:2rem auto;text-align:center;">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width:20px;height:20px;fill:#6b8e23;">
+        <path d="M12 2C8 2 4 6 4 10c0 5 8 12 8 12s8-7 8-12c0-4-4-8-8-8zm0 10a2 2 0 110-4 2 2 0 010 4z"/>
+      </svg>
+      <strong>Today’s Thought:</strong><br>
+      Take a deep breath, and let the world slow down for a moment.
+    </section>
+
+    <!-- Distinctive boxes -->
+    <section class="distinctive-boxes">
+      <div class="d-box">
+        <div class="icon">🌸</div>
+        <h3>Gentle Words</h3>
+        <p>Share a kind line or a heartfelt note that brightens the day.</p>
+      </div>
+      <div class="d-box">
+        <div class="icon">💫</div>
+        <h3>Inspiration Spark</h3>
+        <p>A short phrase or thought that lights up your creativity.</p>
+      </div>
+      <div class="d-box">
+        <div class="icon">🌿</div>
+        <h3>Calming Thought</h3>
+        <p>Something that soothes the mind and brings inner peace.</p>
+      </div>
+      <div class="d-box">
+        <div class="icon">☀️</div>
+        <h3>Ray of Positivity</h3>
+        <p>A cheerful reminder that lifts the spirit and warms the heart.</p>
+      </div>
+    </section>
+  </main>
+
+ <footer>
+    <p class="name-tag"> © 2015 Hanif's World — Quiet Bench
+        <a href="#top" id="back-to-top"><i class="fas fa-chevron-up"></i></a>
+  </footer>
+  
+  <!-- JS -->
+  <script src="../js/scripts.js"></script>
+</body>
+</html>

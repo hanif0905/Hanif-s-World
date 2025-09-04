@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiet Bench — Hanif’s World</title>
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  
+  <style>
+/* Ensure footer stays at bottom */
+html, body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+main {
+  flex: 1;
+}
+
+/* Section title */
+.section-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 1.5rem 0;
+  text-align: center;
+  color: #2f4f2f;
+}
+
+/* Timeline container */
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 2rem auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* Central timeline line for desktop */
+@media (min-width: 768px) {
+  .timeline::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to bottom, #a8edea, #fed6e3);
+    border-radius: 2px;
+    opacity: 0.4;
+    transition: box-shadow 0.5s ease;
+    z-index: 1;
+  }
+  .timeline.glow::before {
+    box-shadow: 0 0 15px #a8edea, 0 0 25px #fed6e3;
+    opacity: 1;
+  }
+}
+
+/* Milestone card */
+.milestone {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 16px;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  position: relative;
+  z-index: 2; /* Always above line & particles */
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  overflow: hidden;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+/* When visible */
+.milestone.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Era gradients */
+.childhood { background: linear-gradient(135deg, #d4fc79, #96e6a1); }
+.present { background: linear-gradient(135deg, #a1c4fd, #c2e9fb); }
+.future { background: linear-gradient(135deg, #fbc2eb, #a6c1ee); }
+
+/* Hover effect */
+.milestone:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+.milestone-content {
+  max-height: 80px;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+.milestone:hover .milestone-content {
+  max-height: 300px;
+}
+
+/* Date & title */
+.milestone-date {
+  font-weight: bold;
+  color: #2f4f2f;
+  margin-bottom: 0.3rem;
+}
+.milestone-title {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Optional image */
+.milestone img {
+  width: 100%;
+  border-radius: 12px;
+  margin-top: 0.5rem;
+}
+
+/* Connector between milestones */
+.connector {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  background: linear-gradient(to bottom, #a8edea, #fed6e3);
+  opacity: 0.4;
+  transition: box-shadow 0.5s ease, opacity 0.5s ease;
+  z-index: 1;
+}
+.connector.glow {
+  box-shadow: 0 0 15px #a8edea, 0 0 25px #fed6e3;
+  opacity: 1;
+}
+@media (min-width: 768px) {
+  .milestone:not(:last-child) .connector {
+    height: 100%;
+    top: 100%;
+  }
+}
+
+/* Particle styles */
+.particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  animation: floatParticle linear infinite, colorShift 6s ease-in-out infinite;
+  pointer-events: none;
+  opacity: 0.85;
+  filter: drop-shadow(0 0 4px rgba(255, 215, 0, 0.8));
+}
+@keyframes floatParticle {
+  0% { transform: translateY(0) scale(1); opacity: 0.8; }
+  50% { transform: translateY(-20px) scale(1.2); opacity: 1; }
+  100% { transform: translateY(0) scale(1); opacity: 0.8; }
+}
+.particle:nth-child(even) {
+  animation: floatParticleX linear infinite, colorShift 6s ease-in-out infinite;
+}
+@keyframes floatParticleX {
+  0% { transform: translate(0, 0) scale(1); opacity: 0.8; }
+  50% { transform: translate(5px, -20px) scale(1.2); opacity: 1; }
+  100% { transform: translate(0, 0) scale(1); opacity: 0.8; }
+}
+@keyframes colorShift {
+  0% { background: radial-gradient(circle, rgba(255, 215, 0, 0.95) 0%, rgba(255, 215, 0, 0) 70%); }
+  33% { background: radial-gradient(circle, rgba(144, 238, 144, 0.95) 0%, rgba(144, 238, 144, 0) 70%); }
+  66% { background: radial-gradient(circle, rgba(173, 216, 230, 0.95) 0%, rgba(173, 216, 230, 0) 70%); }
+  100% { background: radial-gradient(circle, rgba(255, 215, 0, 0.95) 0%, rgba(255, 215, 0, 0) 70%); }
+}
+/* Pulse animation */
+@keyframes pulseOnce {
+  0%   { transform: scale(1); }
+  30%  { transform: scale(1.03); }
+  60%  { transform: scale(0.98); }
+  100% { transform: scale(1); }
+}
+
+/* Apply pulse when milestone becomes visible */
+.milestone.pulse {
+  animation: pulseOnce 0.8s ease;
+}
+</style>
+
+
+</head>
+<body id="top">
+
+  <!-- SITE TITLE -->
+  <div class="site-title-top">
+    <h1>Hanif’s World</h1>
+  </div>
+
+  <!-- HEADER -->
+  <header class="main-header">
+    <!-- Hamburger -->
+    <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Nav Tabs -->
+    <nav class="nav-tabs">
+      <a href="../index.html">Home</a>
+      <a href="quiet.html">Quiet Bench</a>
+      <a href="study.html">Study Table</a>
+      <a href="studio.html">Little Studio</a>
+      <a href="quotes.html">Pocket Quotes</a>
+      <a href="pathways.html">Pathways</a>
+      <a href="about.html">About Hanif</a>
+    </nav>
+
+    <!-- Dropdown Menu -->
+    <nav class="dropdown-menu" hidden>
+      <a href="../index.html">Home</a>
+      <a href="quiet.html">Quiet Bench</a>
+      <a href="study.html">Study Table</a>
+      <a href="studio.html">Little Studio</a>
+      <a href="quotes.html">Pocket Quotes</a>
+      <a href="pathways.html">Pathways</a>
+      <a href="about.html">About Hanif</a>
+    </nav>
+  </header>
+
+  <main>
+  <h2 class="section-title">🛤️ Pathways</h2>
+
+  <div class="timeline">
+    <div class="milestone childhood">
+      <div class="milestone-date">1997 - 2006</div>
+      <div class="milestone-title">Childhood Roots</div>
+      <div class="milestone-content">
+        <p>Growing up surrounded by nature, learning values from family and community.</p>
+        <img src="../images/childhood.jpg" alt="Childhood memories">
+      </div>
+      <div class="connector"></div>
+    </div>
+
+    <div class="milestone present">
+      <div class="milestone-date">2006 - 2021</div>
+      <div class="milestone-title">School life</div>
+      <div class="milestone-content">
+        <p>Balancing personal growth, community service, and spiritual learning.</p>
+        <img src="../images/present.jpg" alt="Wild Life - Schooling">
+      </div>
+      <div class="connector"></div>
+    </div>
+
+    <div class="milestone present">
+      <div class="milestone-date">2020 - 2024</div>
+      <div class="milestone-title">IRI Manipur</div>
+      <div class="milestone-content">
+        <p>Balancing personal growth, community service, and spiritual learning.</p>
+        <img src="../images/present.jpg" alt="Journey of IRI Manipur">
+      </div>
+      <div class="connector"></div>
+    </div>
+
+    <div class="milestone present">
+      <div class="milestone-date">2021 - Present</div>
+      <div class="milestone-title">Professional Life</div>
+      <div class="milestone-content">
+        <p>Balancing personal growth, community service, and spiritual learning.</p>
+        <img src="../images/present.jpg" alt="Present journey">
+      </div>
+      <div class="connector"></div>
+    </div>
+
+    
+
+    <div class="milestone future">
+      <div class="milestone-date">Future</div>
+      <div class="milestone-title">Vision Ahead</div>
+      <div class="milestone-content">
+        <p>Dreaming of a future where technology and nature coexist beautifully.</p>
+        <img src="../images/future.jpg" alt="Future vision">
+      </div>
+    </div>
+  </div>
+
+  <!-- Particle container -->
+  <div id="particleContainer"></div>
+</main>
+
+<!-- Footer -->
+<footer>
+  © 2025 Hanif's World — Study Table
+</footer>
+
+  <!-- JS -->
+  <script src="../js/scripts.js"></script>
+
+<script>
+// ===== Scroll-in Animation + Glowing Connectors =====
+const milestones = document.querySelectorAll('.milestone');
+const timeline = document.querySelector('.timeline');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, index) => {
+    if (entry.isIntersecting) {
+      // Reveal milestone with staggered delay
+      setTimeout(() => {
+  // Reveal milestone
+  entry.target.classList.add('visible');
+
+  // Add pulse effect
+  entry.target.classList.add('pulse');
+  setTimeout(() => entry.target.classList.remove('pulse'), 1000);
+
+  // Glow connector
+  const connector = entry.target.querySelector('.connector');
+  if (connector) {
+    connector.classList.add('glow');
+    setTimeout(() => connector.classList.remove('glow'), 1000);
+  }
+
+  // Glow central line
+  timeline.classList.add('glow');
+  setTimeout(() => timeline.classList.remove('glow'), 800);
+
+}, index * 200);
+
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.2 });
+
+milestones.forEach(milestone => observer.observe(milestone));
+
+// ===== Particle Generation =====
+function createParticles() {
+  const container = document.getElementById('particleContainer');
+  container.innerHTML = ''; // clear old particles
+
+  const isDesktop = window.innerWidth >= 768;
+  const particleCount = isDesktop ? 20 : 10;
+
+  for (let i = 0; i < particleCount; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+
+    // Position particles
+    if (isDesktop) {
+      // Align near central line
+      particle.style.left = 'calc(50% - 3px)';
+      particle.style.top = `${Math.random() * 100}%`;
+    } else {
+      // Scatter around milestones
+      particle.style.left = `${Math.random() * 90}%`;
+      particle.style.top = `${Math.random() * 100}%`;
+    }
+
+    // Random animation duration & delay
+    const floatDuration = (Math.random() * 3 + 3).toFixed(2) + 's';
+    const floatDelay = (Math.random() * 2).toFixed(2) + 's';
+    const colorDelay = (Math.random() * 6).toFixed(2) + 's';
+
+    // Apply multiple animations with different delays
+    particle.style.animationDuration = `${floatDuration}, 6s`;
+    particle.style.animationDelay = `${floatDelay}, ${colorDelay}`;
+
+    container.appendChild(particle);
+  }
+}
+
+// Run on load and resize
+createParticles();
+window.addEventListener('resize', createParticles);
+</script>
+
+</body>
+</html>

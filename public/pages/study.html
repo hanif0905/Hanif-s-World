@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiet Bench — Hanif’s World</title>
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+/* Background gradient */
+body {
+  background: linear-gradient(135deg, #d4a5ff, #a5d6ff, #ffd6a5);
+  background-size: 300% 300%;
+  animation: gradientShift 15s ease infinite;
+  margin: 0;
+  padding: 0;
+}
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Hero layout for title + ayahs */
+.study-hero {
+  position: relative;
+  margin-top: 50px; /* was 70px — moves everything up */
+  text-align: center;
+}
+
+/* Shared sparkle + gradient settings */
+:root {
+  --sparkle-size1: 3px;
+  --sparkle-size2: 2px;
+  --sparkle-size3: 1.5px;
+  --sparkle-speed: 20s;
+}
+
+/* Section title — unified sparkle */
+.section-title {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  margin-top: -5px;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,0.9) var(--sparkle-size1), transparent var(--sparkle-size1)),
+    radial-gradient(circle, rgba(255,255,255,0.7) var(--sparkle-size2), transparent var(--sparkle-size2)),
+    radial-gradient(circle, rgba(255,255,255,0.5) var(--sparkle-size3), transparent var(--sparkle-size3)),
+    linear-gradient(90deg, #ff758c, #ff7eb3);
+  background-size: 140px 140px, 110px 110px, 80px 80px, cover;
+  background-repeat: repeat;
+  animation: sparkleUnified var(--sparkle-speed) linear infinite;
+}
+
+/* Ayah cards — unified sparkle */
+.ayah-card {
+  position: absolute;
+  top: -20px;
+  border-radius: 10px;
+  padding: 0.8rem 1rem;
+  width: 260px;
+  min-height: 90px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,0.9) var(--sparkle-size1), transparent var(--sparkle-size1)),
+    radial-gradient(circle, rgba(255,255,255,0.7) var(--sparkle-size2), transparent var(--sparkle-size2)),
+    radial-gradient(circle, rgba(255,255,255,0.5) var(--sparkle-size3), transparent var(--sparkle-size3)),
+    linear-gradient(135deg, rgba(172, 162, 45, 0.93), rgba(245,245,255,0.95));
+  background-size: 140px 140px, 110px 110px, 80px 80px, cover;
+  background-repeat: repeat;
+  animation: sparkleUnified var(--sparkle-speed) linear infinite;
+}
+.ayah-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+.ayah-left { left: 10px; }
+.ayah-right { right: 10px; }
+.ayah-card h3 {
+  margin: 0 0 6px;
+  font-size: 1rem;
+  color: #333;
+}
+.ayah-card p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Unified sparkle animation */
+@keyframes sparkleUnified {
+  from { background-position: 0 0, 0 0, 0 0, 0 0; }
+  to { background-position: 140px 140px, 110px 110px, 80px 80px, 0 0; }
+}
+
+/* Golden Tip */
+.golden-tip {
+  margin: 3.5rem auto 2rem;
+  padding: 0.5rem 1rem;
+  max-width: 600px;
+  background: linear-gradient(90deg, #ffe259, #ffa751);
+  color: #333;
+  font-weight: 600;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Resources grid - exactly 2 per row, 3 rows */
+.resources-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 per row */
+  gap: 0.8rem;
+  max-width: 500px; /* keeps it compact */
+  margin: 0 auto 2rem;
+  position: relative;
+  z-index: 1; /* tiles above raindrops */
+}
+
+/* Container for resources with falling raindrops */
+.resources-section {
+  position: relative;
+  overflow: hidden; /* keeps raindrops inside the section */
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+/* Raindrops using leaf.png image */
+.leaf {
+  position: absolute;
+  width: 20px; /* adjust to match your image size */
+  height: 20px;
+  background-image: url('../images/leaf.png'); /* adjust path if needed */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.9;
+  animation: rain linear infinite;
+  z-index: 0; /* behind tiles */
+}
+
+/* More drops with slower speeds */
+.leaf:nth-child(1)  { left: 5%;  animation-duration: 5s; animation-delay: 0s; }
+.leaf:nth-child(2)  { left: 10%; animation-duration: 6s; animation-delay: 1s; }
+.leaf:nth-child(3)  { left: 15%; animation-duration: 5.5s; animation-delay: 2s; }
+.leaf:nth-child(4)  { left: 20%; animation-duration: 6.5s; animation-delay: 0.5s; }
+.leaf:nth-child(5)  { left: 25%; animation-duration: 5.8s; animation-delay: 1.5s; }
+.leaf:nth-child(6)  { left: 30%; animation-duration: 6.2s; animation-delay: 2.5s; }
+.leaf:nth-child(7)  { left: 35%; animation-duration: 5.7s; animation-delay: 0.8s; }
+.leaf:nth-child(8)  { left: 40%; animation-duration: 6.3s; animation-delay: 1.8s; }
+.leaf:nth-child(9)  { left: 45%; animation-duration: 5.9s; animation-delay: 2.8s; }
+.leaf:nth-child(10) { left: 50%; animation-duration: 6.4s; animation-delay: 0.3s; }
+.leaf:nth-child(11) { left: 55%; animation-duration: 5.6s; animation-delay: 1.3s; }
+.leaf:nth-child(12) { left: 60%; animation-duration: 6.1s; animation-delay: 2.3s; }
+.leaf:nth-child(13) { left: 65%; animation-duration: 5.5s; animation-delay: 0.6s; }
+.leaf:nth-child(14) { left: 70%; animation-duration: 6.6s; animation-delay: 1.6s; }
+.leaf:nth-child(15) { left: 75%; animation-duration: 5.8s; animation-delay: 2.6s; }
+.leaf:nth-child(16) { left: 80%; animation-duration: 6.2s; animation-delay: 0.9s; }
+.leaf:nth-child(17) { left: 85%; animation-duration: 5.7s; animation-delay: 1.9s; }
+.leaf:nth-child(18) { left: 90%; animation-duration: 6.3s; animation-delay: 2.9s; }
+.leaf:nth-child(19) { left: 95%; animation-duration: 5.9s; animation-delay: 0.4s; }
+.leaf:nth-child(20) { left: 98%; animation-duration: 6.4s; animation-delay: 1.4s; }
+
+/* Slower falling animation */
+@keyframes rain {
+  0%   { transform: translateY(-20px) scaleX(1); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { transform: translateY(250px) scaleX(1); opacity: 1; }
+  100% { transform: translateY(300px) scaleX(0.8); opacity: 0; }
+}
+
+
+/* Ripple effect */
+.ripple {
+  position: absolute;
+  bottom: 0;
+  width: 6px;
+  height: 2px;
+  background: rgba(173, 216, 230, 0.5);
+  border-radius: 50%;
+  animation: rippleAnim 0.6s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes rippleAnim {
+  0%   { transform: scale(0.5); opacity: 0.6; }
+  50%  { transform: scale(2); opacity: 0.4; }
+  100% { transform: scale(3); opacity: 0; }
+}
+
+
+/* Nature-styled resource tiles with gentle sway */
+.resource-tile {
+  background-image:
+    radial-gradient(circle at top left, rgba(255,255,255,0.4) 2px, transparent 2px),
+    radial-gradient(circle at bottom right, rgba(255,255,255,0.3) 1.5px, transparent 1.5px),
+    linear-gradient(135deg, #d4f1d4, #a8e6a3);
+  background-size: 80px 80px, 60px 60px, cover;
+  background-repeat: repeat;
+  border-radius: 16px;
+  padding: 0.4rem;
+  height: 45px; /* shorter height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #2f4f2f;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  transform-origin: center;
+}
+
+.resource-tile:hover {
+  animation: sway 1.5s ease-in-out infinite alternate;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+}
+
+.resource-tile a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+/* Gentle sway animation */
+@keyframes sway {
+  0% { transform: rotate(0deg) translateY(0); }
+  50% { transform: rotate(1.5deg) translateY(-2px); }
+  100% { transform: rotate(-1.5deg) translateY(2px); }
+}
+
+
+/* Collapsible notes */
+details.study-note {
+  background: rgba(240,248,255,0.9);
+  margin: 1rem auto;
+  max-width: 600px;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+details.study-note summary {
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1rem;
+}
+details.study-note p {
+  font-size: 0.9rem;
+  color: #444;
+  margin-top: 0.5rem;
+}
+
+/* Footer */
+footer {
+  position: relative;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #fff;
+  padding: 10px 0;
+  background: linear-gradient(90deg, #1a1a1a, #2a2a2a, #1a1a1a);
+  margin-top: 2rem;
+}
+
+/* Mobile adjustments */
+@media (max-width: 640px) {
+  .ayah-card {
+    position: static;
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+  .study-hero { margin-top: 1rem; }
+}
+</style>
+
+</head>
+<body id="top">
+
+  <!-- SITE TITLE -->
+  <div class="site-title-top">
+    <h1>Hanif’s World</h1>
+  </div>
+
+  <!-- HEADER -->
+  <header class="main-header">
+    <!-- Hamburger -->
+    <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Nav Tabs -->
+    <nav class="nav-tabs">
+      <a href="../index.html">Home</a>
+      <a href="quiet.html">Quiet Bench</a>
+      <a href="study.html">Study Table</a>
+      <a href="studio.html">Little Studio</a>
+      <a href="quotes.html">Pocket Quotes</a>
+      <a href="pathways.html">Pathways</a>
+      <a href="about.html">About Hanif</a>
+    </nav>
+
+    <!-- Dropdown Menu -->
+    <nav class="dropdown-menu" hidden>
+      <a href="../index.html">Home</a>
+      <a href="quiet.html">Quiet Bench</a>
+      <a href="study.html">Study Table</a>
+      <a href="studio.html">Little Studio</a>
+      <a href="quotes.html">Pocket Quotes</a>
+      <a href="pathways.html">Pathways</a>
+      <a href="about.html">About Hanif</a>
+    </nav>
+  </header>
+
+  <div class="study-hero">
+  <!-- Ayah #1: top-left -->
+  <div class="ayah-card ayah-left">
+    <h3>Quranic Ayah #1</h3>
+    <p>You can paste your ayah here later.</p>
+  </div>
+
+  <!-- Ayah #2: top-right -->
+  <div class="ayah-card ayah-right">
+    <h3>Quranic Ayah #2</h3>
+    <p>You can paste your ayah here later.</p>
+  </div>
+
+ <!-- Centered title -->
+  <h2 class="section-title">📚 What I'm Learning Now 📚</h2>
+</div>
+
+
+<!-- Golden Tip -->
+<div class="golden-tip">
+  🌟 Golden Tip of the Week: "Consistency beats intensity. Study a little every day."
+</div>
+
+
+<!-- Resources Grid -->
+<div class="resources-section">
+  <!-- Raindrops -->
+  <div class="leaf"></div>
+  <div class="leaf"></div>
+  <div class="leaf"></div>
+  <div class="leaf"></div>
+  <div class="leaf"></div>
+  <div class="leaf"></div>
+  <div class="leaf"></div>
+  <div class="leaf"></div>
+  <div class="leaf"></div>
+  <div class="leaf"></div>
+  <div class="leaf"></div>
+  <div class="leaf"></div>
+  <div class="leaf"></div>
+  <div class="leaf"></div>
+  <div class="leaf"></div>
+  <div class="leaf"></div>
+  <div class="leaf"></div>
+  <div class="leaf"></div>
+  <div class="leaf"></div>
+<!-- Ripple container -->
+  <div id="ripple-container"></div>
+  <!-- Resources Grid -->
+<!-- Resources Grid -->
+  <div class="resources-grid">
+    <div class="resource-tile"><a href="#">Quran Online Website</a></div>
+    <div class="resource-tile"><a href="#">Quran Mastery Guide</a></div>
+    <div class="resource-tile"><a href="#">Quran Word Index</a></div>
+    <div class="resource-tile"><a href="#">Arabic Vocabulary Project</a></div>
+    <div class="resource-tile"><a href="#">Arabic Verb Index</a></div>
+    <div class="resource-tile"><a href="#">More Coming Soon</a></div>
+  </div>
+</div>
+
+<!-- Collapsible Notes -->
+<details class="study-note">
+  <summary>🗣️ Arabic Vocabulary</summary>
+  <p>Learn 5 new words daily and use them in sentences.</p>
+</details>
+
+<details class="study-note">
+  <summary>🔍 Quranic Reflection</summary>
+  <p>Reflect on Surah Al-Fatiha and its meanings.</p>
+</details>
+
+<details class="study-note">
+  <summary>📜 Hadith Study</summary>
+  <p>Read one hadith from Riyad as-Salihin and note its lessons.</p>
+</details>
+
+<!-- Footer -->
+<footer>
+  © 2025 Hanif's World — Study Table
+</footer>
+
+  <!-- JS -->
+  <script src="../js/scripts.js"></script>
+</body>
+</html>
