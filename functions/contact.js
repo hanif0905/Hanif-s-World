@@ -66,30 +66,31 @@ export async function onRequestPost(context) {
     const accessToken = tokenData.access_token;
 
     // Append to Google Sheet
-    const sheetUrl = `https://sheets.googleapis.com/v4/spreadsheets/${env.GOOGLE_SHEETS_ID}/values/Sheet1!A:E:append?valueInputOption=RAW`;
-    const body = {
-      values: [[new Date().toISOString(), name, email, message, request.headers.get("user-agent") || "unknown"]]
-    };
+const sheetUrl = `https://sheets.googleapis.com/v4/spreadsheets/${env.GOOGLE_SHEETS_ID}/values/Sheet1!A:E:append?valueInputOption=RAW`;
+const body = {
+  values: [[new Date().toISOString(), name, email, message, request.headers.get("user-agent") || "unknown"]]
+};
 
-    const sheetResp = await fetch(sheetUrl, {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${accessToken}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(body)
-    });
+const sheetResp = await fetch(sheetUrl, {
+  method: "POST",
+  headers: {
+    "Authorization": `Bearer ${accessToken}`,
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify(body)
+});
 
-    if (!sheetResp.ok) {
-      const errText = await sheetResp.text();
-      return new Response(JSON.stringify({ error: errText }), { status: 500 });
-    }
-
+if (!sheetResp.ok) {
+  const errText = await sheetResp.text();
+  console.error("Google Sheets API error:", errText); // 👈 This will show in Cloudflare logs
+  return new Response(JSON.stringify({ error: errText }), { status: 500 });
+}
     return new Response(JSON.stringify({ message: "OK" }), {
       headers: { "Content-Type": "application/json" }
     });
 
   } catch (err) {
     return new Response(JSON.stringify({ error: err.message }), { status: 500 });
+    console.error("Sheets append error:", err);
   }
 }

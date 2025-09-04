@@ -244,13 +244,39 @@ button#contactSubmit:disabled { opacity: 0.6; cursor: not-allowed; }
   <div class="contact-section">
     <p>📬 Say hello, I’d love to hear from you.</p>
     <form id="contactForm">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="_replyto" placeholder="Your Email" required>
-      <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
-      <button type="submit" id="contactSubmit">Send Message</button>
-    </form>
-    <div id="formStatus" style="margin-top:0.5rem; font-size:0.9rem;"></div>
-  </div>
+  <input type="text" name="name" placeholder="Your Name" required>
+  <input type="email" name="email" placeholder="Your Email" required>
+  <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
+  <!-- Honeypot -->
+  <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
+  <button type="submit">Send Message</button>
+</form>
+<div id="formStatus"></div>
+
+<script>
+document.getElementById('contactForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const status = document.getElementById('formStatus');
+  const data = Object.fromEntries(new FormData(e.target).entries());
+
+  const resp = await fetch('/api/contact', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  });
+
+  const result = await resp.json();
+  if (resp.ok) {
+    status.textContent = "✅ Thanks! Your message has been sent.";
+    status.style.color = "green";
+    e.target.reset();
+  } else {
+    status.textContent = "❌ " + (result.error || "Error sending message.");
+    status.style.color = "red";
+  }
+});
+</script>
+
 
   <!-- Fun Facts -->
   <div class="fun-facts">
