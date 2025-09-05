@@ -962,5 +962,22 @@ header, main, footer {
 .send-status.error {
   color: #c62828;
 }
+/* Gentle glow effect for success state */
+.send-btn.glow {
+  animation: glowPulse 1.8s ease-in-out 2;
+  box-shadow: 0 0 12px rgba(255, 182, 193, 0.7), 0 0 24px rgba(255, 182, 193, 0.5);
+}
+
+@keyframes glowPulse {
+  0% {
+    box-shadow: 0 0 6px rgba(255, 182, 193, 0.4), 0 0 12px rgba(255, 182, 193, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 16px rgba(255, 182, 193, 0.8), 0 0 32px rgba(255, 182, 193, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 6px rgba(255, 182, 193, 0.4), 0 0 12px rgba(255, 182, 193, 0.3);
+  }
+}
 
 

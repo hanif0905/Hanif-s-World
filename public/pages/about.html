@@ -296,11 +296,21 @@ function setSendingState() {
 function setSuccessState() {
   btn.classList.remove('loading');
   btn.textContent = '🌸 Thank you! Please be patient 🌸';
+  btn.classList.add('glow'); // ✨ trigger glow animation
   if (statusEl) {
     statusEl.textContent = 'Your message was sent successfully.';
     statusEl.classList.remove('error');
   }
+
+  // Auto-reset after 5 seconds
+  setTimeout(() => {
+    btn.classList.remove('glow');
+    btn.disabled = false;
+    btn.textContent = 'Send Message';
+    if (statusEl) statusEl.textContent = '';
+  }, 5000);
 }
+
 
 function setErrorState(msg = 'Something went wrong. Please try again.') {
   btn.classList.remove('loading');
