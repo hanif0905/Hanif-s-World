@@ -241,42 +241,24 @@ button#contactSubmit:disabled { opacity: 0.6; cursor: not-allowed; }
   </div>
 
   <!-- Contact Form -->
-  <div class="contact-section">
-    <p>📬 Say hello, I’d love to hear from you.</p>
-    <form id="contactForm">
-  <input type="text" name="name" placeholder="Your Name" required>
-  <input type="email" name="email" placeholder="Your Email" required>
-  <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
-  <!-- Honeypot -->
-  <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
-  <button type="submit">Send Message</button>
-</form>
-<div id="formStatus"></div>
+<div class="contact-section">
+  <p>📬 Say hello, I’d love to hear from you.</p>
+  <form id="contactForm">
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="email" name="email" placeholder="Your Email" required>
+    <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
+    <!-- Honeypot -->
+    <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
 
-<script>
-document.getElementById('contactForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const status = document.getElementById('formStatus');
-  const data = Object.fromEntries(new FormData(e.target).entries());
+    <!-- Animated Send Button -->
+    <button id="sendBtn" type="submit" class="send-btn">
+      Send Message
+    </button>
 
-  const resp = await fetch('/api/contact', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
-  });
-
-  const result = await resp.json();
-  if (resp.ok) {
-    status.textContent = "✅ Thanks! Your message has been sent.";
-    status.style.color = "green";
-    e.target.reset();
-  } else {
-    status.textContent = "❌ " + (result.error || "Error sending message.");
-    status.style.color = "red";
-  }
-});
-</script>
-
+    <!-- Status line -->
+    <p id="sendStatus" class="send-status" aria-live="polite"></p>
+  </form>
+</div>
 
   <!-- Fun Facts -->
   <div class="fun-facts">
@@ -300,133 +282,65 @@ document.getElementById('contactForm').addEventListener('submit', async (e) => {
   <script src="../js/scripts.js"></script>
 
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-  // ===== Skill popup content =====
-  const skillDetails = {
-    languages: "I can speak Manipuri, English, and Hindi — switching between them feels like switching between worlds.",
-    learning: "Currently learning coding with Copilot — turning ideas into living, breathing projects.",
-    ideas: "I see ideas as seeds. I plant them, nurture them, and watch them grow into something meaningful.",
-    design: "I design with harmony, clarity, and a touch of magic — layouts that feel alive and welcoming.",
-    problem: "I approach problems like puzzles — patient, methodical, and always looking for the hidden piece."
-  };
+const btn = document.getElementById('sendBtn');
+const statusEl = document.getElementById('sendStatus');
+const form = document.getElementById('contactForm');
 
-  const badges = document.querySelectorAll('.skill-badge');
-  const popup = document.getElementById('skillPopup');
-  const popupContainer = document.getElementById('skillPopupContainer');
-  const timelineWrapper = document.getElementById('timelineWrapper');
-  let autoCloseTimer = null;
+function setSendingState() {
+  btn.disabled = true;
+  btn.classList.add('loading');
+  btn.textContent = '💌 Sending... Please wait';
+  if (statusEl) statusEl.textContent = '';
+}
 
-  function openPopup(skillText) {
-    // Set content
-    popup.textContent = skillText;
-
-    // Show popup with fade + glow
-    popup.classList.add('show');
-
-    // Adjust timeline on desktop (avoid overlap)
-    if (window.innerWidth > 600) {
-      // Ensure popup is laid out before measuring
-      requestAnimationFrame(() => {
-        const h = popup.offsetHeight;
-        timelineWrapper.style.marginTop = (h + 16) + 'px';
-      });
-    } else {
-      // Mobile: keep layout stable (reserved space via min-height)
-      timelineWrapper.style.marginTop = '0';
-    }
-
-    // Auto-close after a few seconds
-    clearTimeout(autoCloseTimer);
-    autoCloseTimer = setTimeout(closePopup, 4500);
+function setSuccessState() {
+  btn.classList.remove('loading');
+  btn.textContent = '🌸 Thank you! Please be patient 🌸';
+  if (statusEl) {
+    statusEl.textContent = 'Your message was sent successfully.';
+    statusEl.classList.remove('error');
   }
+}
 
-  function closePopup() {
-    popup.classList.remove('show');
-    // Allow transition to finish before removing margin
-    setTimeout(() => {
-      if (window.innerWidth > 600) {
-        timelineWrapper.style.marginTop = '0';
-      }
-    }, 220);
-    clearTimeout(autoCloseTimer);
+function setErrorState(msg = 'Something went wrong. Please try again.') {
+  btn.classList.remove('loading');
+  btn.disabled = false;
+  btn.textContent = 'Send Message';
+  if (statusEl) {
+    statusEl.textContent = msg;
+    statusEl.classList.add('error');
+    setTimeout(() => statusEl.classList.remove('error'), 3000);
   }
+}
 
-  badges.forEach(badge => {
-    badge.addEventListener('click', (e) => {
-      const key = badge.getAttribute('data-skill');
-      const text = skillDetails[key];
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
 
-      // If already visible with same text, close; else open
-      const isSame = popup.classList.contains('show') && popup.textContent === text;
-      if (isSame) {
-        closePopup();
-      } else {
-        openPopup(text);
-      }
-      e.stopPropagation();
+  setSendingState();
+
+  try {
+    const formData = new FormData(form);
+    const payload = {
+      name: formData.get('name')?.trim() || '',
+      email: formData.get('email')?.trim() || '',
+      message: formData.get('message')?.trim() || ''
+    };
+
+    const res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
     });
-  });
 
-  // Close when clicking outside popup/skills
-  document.addEventListener('click', (e) => {
-    const clickedInsideSkills = e.target.closest('.skills');
-    const clickedInsidePopup = e.target.closest('#skillPopup');
-    if (!clickedInsideSkills && !clickedInsidePopup && popup.classList.contains('show')) {
-      closePopup();
-    }
-  });
-
-  // Recalculate on resize
-  window.addEventListener('resize', () => {
-    if (!popup.classList.contains('show')) return;
-    if (window.innerWidth > 600) {
-      requestAnimationFrame(() => {
-        const h = popup.offsetHeight;
-        timelineWrapper.style.marginTop = (h + 16) + 'px';
-      });
+    if (res.ok) {
+      setSuccessState();
+      form.reset();
     } else {
-      timelineWrapper.style.marginTop = '0';
+      const err = await res.text().catch(() => '');
+      setErrorState(err || 'Failed to send. Please try again.');
     }
-  });
-
-  // ===== Contact form (Formspree) =====
-  const form = document.getElementById('contactForm');
-  const status = document.getElementById('formStatus');
-  const submitBtn = document.getElementById('contactSubmit');
-
-  if (form) {
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      status.textContent = '';
-      submitBtn.disabled = true;
-      const originalText = submitBtn.textContent;
-      submitBtn.textContent = 'Sending...';
-
-      try {
-        const data = new FormData(form);
-        const resp = await fetch('https://formspree.io/f/myzpreqq', {
-          method: 'POST',
-          body: data,
-          headers: { 'Accept': 'application/json' }
-        });
-
-        if (resp.ok) {
-          status.textContent = '✅ Thanks! Your message has been sent.';
-          status.style.color = 'green';
-          form.reset();
-        } else {
-          const result = await resp.json().catch(() => ({}));
-          status.textContent = (result && result.error) ? result.error : '❌ Oops! There was a problem sending your message.';
-          status.style.color = 'red';
-        }
-      } catch (err) {
-        status.textContent = '❌ Network error. Please try again.';
-        status.style.color = 'red';
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = originalText;
-      }
-    });
+  } catch (err) {
+    setErrorState('Network error. Please check your connection.');
   }
 });
 </script>
